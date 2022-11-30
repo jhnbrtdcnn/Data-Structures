@@ -1,0 +1,132 @@
+# Decinan, Johnbert
+# BSIT II-B
+# Project_2
+
+# creating class Widget
+class Widget:
+    # creating constructor for the class Widget which  has fields: quantity, cost, and company
+    def __init__(self, quantity, cost, company):
+        self.quantity = quantity
+        self. cost = cost
+        self. company = company
+        self.next = None
+
+# creating class Warehouse
+class Warehouse:
+    # creating constructor for the class Warehouse
+    def __init__(self):
+        self.head = None
+
+    # creating a method for the main menu
+    def menu(self):
+        print()
+        print('********************************')
+        print('[1] - Store Shipments Received')
+        print('[2] - Ship Out Order')
+        print('[3] - Display Shipments Received')
+        print('[0] - Exit')
+        print('********************************')
+        print()
+
+        # assigning the selected option to the variable 'choice'
+        choice = int(input('Select an option: '))
+        print()
+
+        # executed if choice is equal to 1
+        if choice == 1:
+            # assigning inputed data for each field
+            quantity = int(input('Quantity Received: '))
+            cost = int(input('Cost per Widget: '))
+            company = input('Company received from:  ')
+            # calling a method which stores the shipments received containing the fields to be pass
+            Warehouse.store_shipment(self, quantity, cost, company)
+            # calling menu method
+            s.menu()
+
+        # executed if choice is equal to 2
+        elif choice == 2:
+            # calling a method to ship out orders
+            Warehouse.shipment_out(self)
+            s.menu()
+
+        # executed if choice is equal to 3
+        elif choice == 3:
+            # calling display method to display all Employees
+            Warehouse.display_shipment_received(self)
+            # calling menu method
+            s.menu()
+
+        # executed if choice is equal to 0
+        elif choice == 0:
+            # method to exit the program
+            exit()
+
+        # executed if choice is none of the above
+        else:
+            print('Invalid Input, Please try again')
+            s.menu()
+
+    # method to store shipments received
+    def store_shipment(self, quantity, cost, vendor):
+        # creating new widget
+        new_widget = Widget(quantity, cost, vendor)
+        # executed if list is not empty
+        if self.head:
+            # linking...
+            new_widget.next = self.head
+            self.head = new_widget
+        # executed if list is empty
+        else:
+            self.head = new_widget
+
+    # method to process an order (Ship out)
+    def shipment_out(self):
+        # initializing value for total_cost
+        total_cost = 0
+        # executed if list is not empty
+        if self.head:
+            current = self.head
+            # since it is a first-in, first-out system, the oldest widget are the first ones sent out to fill an order.
+            # traversing...
+            while current.next:
+                pre_current = current
+                current = current.next
+            # when traversing meets the end of the list, it will print the widget's quantity and the total cost for all the widgets in the order
+            print('Quantity of Widget Shipped out: ', current.quantity)
+            # computing total cost of widget
+            total_cost = current.quantity * (current.cost + current.cost * 0.50)
+            print("Total Cost: ₱ %.2f" % total_cost)
+            print()
+            print('Order Shipped out Successfully! ')
+            # removing the shipped out order from the list
+            pre_current.next = None
+
+        else:
+            print('head is null')
+
+    # method to display the shipments recieved
+    def display_shipment_received(self):
+        # executed if list is not empty
+        if self.head:
+            current = self.head
+            print('COMPANY\tQUANTITY RECEIVED\tCOST PER WIDGET')
+            # traversing...
+            while current:
+                print(current.company, '\t\t', current.quantity, '\t\t\t₱ %.2f' %current.cost, )
+                current = current.next
+        # executed if list is empty
+        else:
+            print('List is Empty')
+
+
+
+# creating an object for the class Warehouse
+s = Warehouse()
+
+# initializing list of Shipments received
+s.store_shipment(100, 10, 'Fita')
+s.store_shipment(200, 9, 'Combi')
+s.store_shipment(250, 8, 'Presto')
+
+# calling menu method
+s.menu()
