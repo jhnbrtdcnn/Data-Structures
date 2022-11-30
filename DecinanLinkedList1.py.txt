@@ -31,7 +31,7 @@ class Emp:
         print('[7] - Display the latest')
         print('[0] - Exit')
         print('********************************************')
-        print()
+        print() 
 
         # assigning the selected option to the variable 'choice'
         choice = int(input('Select an option: '))
