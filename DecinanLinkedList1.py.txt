@@ -1,0 +1,273 @@
+# Decinan, Johnbert P.
+# BSIT II-B
+# Project_1
+
+# creating class Employee
+class Employee:
+    # creating constructor for the class Employee which  has fields: id, name, address, salary.
+    def __init__(self, id, name, address, salary):
+        self.id = id
+        self. name = name
+        self. address = address
+        self.salary = salary
+        self.next = None
+
+# creating class Emp
+class Emp:
+    # creating constructor for the class Emp
+    def __init__(self):
+        self.head = None
+
+    # creating a method for the main menu
+    def menu(self):
+        print()
+        print('********************************************')
+        print('[1] - Add Employee')
+        print('[2] - Search Employee (Based on search_name)')
+        print('[3] - Display All Employee')
+        print('[4] - Get The Total Number of Employees')
+        print('[5] - Get the Total Average of Salary')
+        print('[6] - Delete an Employee based on the ID')
+        print('[7] - Display the latest')
+        print('[0] - Exit')
+        print('********************************************')
+        print()
+
+        # assigning the selected option to the variable 'choice'
+        choice = int(input('Select an option: '))
+
+        # executed if choice is equal to 1
+        if choice == 1:
+            # assigning inputed data for each field
+            id = int(input('ID NUMBER: '))
+            search_name = input('NAME: ')
+            address = input('ADDRESS: ')
+            salary = int(input('SALARY: '))
+            # calling a method which adds employee containing the fields to be pass
+            Emp.add_employee(self, id, search_name, address, salary)
+            # calling menu method
+            s.menu()
+
+        # executed if choice is equal to 2
+        elif choice == 2:
+            # assigning inputed name to variable search_name
+            search_name = input('Enter Full Name to Search: ')
+            # calling a method search_employee
+            Emp.search_employee(self, search_name)
+            # calling menu method
+            s.menu()
+
+        # executed if choice is equal to 3
+        elif choice == 3:
+            # calling display method to display all Employees
+            Emp.display_all(self)
+            # calling menu method
+            s.menu()
+
+        # executed if choice is equal to 4
+        elif choice == 4:
+            # calling a method to get the total number of Employees
+            Emp.get_total_employees(self)
+            # calling menu method
+            s.menu()
+
+        # executed if choice is equal to 5
+        elif choice == 5:
+            # calling a method to get the total average salary of Employees
+            Emp.total_average(self)
+            s.menu()
+
+        # executed if choice is equal to 6
+        elif choice == 6:
+            # assigning the inputed id number to variable search_id
+            search_id = int(input('Input Employee\'s Id Number: '))
+            # calling method to delete the Employee based on the given id number
+            Emp.delete_employee(self,search_id)
+            s.menu()
+
+        # executed if choice is equal to 7
+        elif choice == 7:
+            # calling a method to display the latest Employee
+            Emp.display_latest(self)
+            s.menu()
+
+        # executed if choice is equal to 0
+        elif choice == 0:
+            # method to exit the program
+            exit()
+
+        # executed if choice is none of the above
+        else:
+            print('Invalid Input, Please try again')
+            s.menu()
+
+    # method to add employee
+    def add_employee(self,id,name,address,salary):
+        # creating new employee
+        employee = Employee(id, name, address, salary)
+        # executed if list is not empty
+        if self.head:
+            # linking...
+            employee.next = self.head
+            self.head = employee
+        # executed if list is empty
+        else:
+            self.head = employee
+
+
+    # method to search employee based on the given name
+    def search_employee(self, search_name):
+        found = False
+        # executed if list is not empty
+        if self.head:
+            current = self.head
+            # travesing...
+            while current:
+                # executed if search name is found
+                if current.name == search_name:
+                    print('NAME \t\tID NUMBER \tADDRESS \tSALARY')
+                    print(current.name, '\t', current.id, '\t', current.address, '\t', current.salary, )
+                    found = True
+                current = current.next
+            # executed if search name is not found
+            if not found:
+                print('Search Name not Found')
+        # executed if list is empty
+        else:
+            print('Empty List')
+
+    # method to display all the employees
+    def display_all(self):
+        # executed if list is not empty
+        if self.head:
+            current = self.head
+            print('Id Number \tNAME \tADDRESS \tSALARY')
+            # traversing...
+            while current:
+                print(current.id, '\t', current.name, '\t', current.address, '\t', current.salary, )
+                current = current.next
+        # executed if list is empty
+        else:
+            print('List is Empty')
+
+    # method to get the total number of employees
+    def get_total_employees(self):
+        # defining total employee as global (to be used in getting the total average)
+        global total_employees
+        # initializing value for total_employees
+        total_employees = 0
+        # executed if list is not empty
+        if self.head:
+            current = self.head
+            # traversing...
+            while current:
+                # counting number of employees...
+                total_employees = total_employees + 1
+                current = current.next
+            # printing...
+            print('Total Employees: ', total_employees)
+        # executedif list is empty
+        else:
+            print('Empty List')
+
+
+    # method to get the total average salary of all the employees
+    def total_average(self):
+        # initializing value for total salary and total average
+        total_salary = 0
+        total_average = 0
+        # executed if list is not empty
+        if self.head:
+            current = self.head
+            # traversing...
+            while current:
+                # adding total salaries...
+                total_salary = total_salary + current.salary
+                current = current.next
+            # computing total average when traversing is done...
+            total_average = total_salary / total_employees
+            # printing...
+            print('Total Average: %.2f' %total_average)
+        # executed if list is empty
+        else:
+            print('List is Empty')
+
+
+    #  method to delete the employee based on the given id number
+    def delete_employee(self, search_id):
+        found = False
+        # executed if list is not empty
+        if self.head:
+            current = self.head
+            precurrent = current
+            # executed if the employee wanted to be deleted is in the head
+            if current.id == search_id:
+                self.head = self.head.next
+                found = True
+                print('Employee Sucessfully Deleted')
+            else:
+                # traversing...
+                while current:
+                    # executed if search id number is found
+                    if current.id == search_id:
+                        # linking...
+                        precurrent.next = current.next
+                        found = True
+                        print('Employee Sucessfully Deleted')
+                        break
+                    precurrent = current
+                    current = current.next
+                # executed if employee not found
+                if not found:
+                    print('Employee Not Found')
+        # executed if list is empty
+        else:
+            print('Empty List')
+
+
+    # method to display the latest employee
+    def display_latest(self):
+        # executed if list is not empty
+        if self.head:
+            current = self.head
+            print('Id Number \tNAME \tADDRESS \tSALARY')
+            # traversing...
+            while current:
+                if current.next:
+                    # printing the latest employee
+                    print(current.id, '\t', current.name, '\t', current.address, '\t', current.salary, )
+                    break
+                current = current.next
+        # executed if list is empty
+        else:
+            print('List is Empty')
+
+
+
+# creating object of the class Emp
+s = Emp()
+
+# initializing list of employees (20 employees)
+s.add_employee(1211, 'John Decinan', 'Mambaling', 150000)
+s.add_employee(1212, 'Kj Catubig', 'Lapu-Lapu', 157800)
+s.add_employee(1213, 'Kean Lauren', 'Lapu-Lapu', 158500)
+s.add_employee(1214, 'Jam Mitucua', 'Lapu-Lapu', 150420)
+s.add_employee(1215, 'Jim Laroco', 'Lapu-Lapu', 157120)
+s.add_employee(1216, 'Eddie Basay', 'Lapu-Lapu', 159800)
+s.add_employee(1217, 'Clark Senica', 'Naga City', 158500)
+s.add_employee(1218, 'Dom Tumusok', 'Lapu-Lapu', 150123)
+s.add_employee(1219, 'Karen Lumaino', 'Naga City', 156500)
+s.add_employee(1220, 'Mary Navares', 'Labangon', 150425)
+s.add_employee(1221, 'Gab Melendrez', 'Lapu-Lapu', 157820)
+s.add_employee(1222, 'Lee Luvindino', 'Labangon', 150560)
+s.add_employee(1223, 'Clyde Gabisan', 'Talisay', 150120)
+s.add_employee(1224, 'Liam Booc   ', 'Lapu-Lapu', 151020)
+s.add_employee(1225, 'Khyle Rafols', 'Talisay', 154500)
+s.add_employee(1226, 'Shane Tagpuno', 'Cebu City', 150035)
+s.add_employee(1227, 'Denise Erida', 'Cebu City', 150250)
+s.add_employee(1228, 'Louie Nati', 'Cebu City', 150120)
+s.add_employee(1229, 'Jolex Guba', 'Lapu-Lapu', 158500)
+s.add_employee(1230, 'Wenjoy Ybas', 'Talisay', 159560)
+
+# calling menu method
+s.menu()
